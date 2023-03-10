@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
 import os 
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ay9p4la(b=7n7)@9w$^q@i@mm^x%5@(2^(q_25x)4%s+sq0c1f'
+SECRET_KEY =  env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,11 +83,11 @@ WSGI_APPLICATION = 'Income_Management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cs50web', 
-        'USER': 'cs50', 
-        'PASSWORD': 'cs50',
-        'HOST': 'localhost', 
-        'PORT': 5432,
+        'NAME': env('DATABASE_NAME'), 
+        'USER': env('DATABASE_USER'), 
+        'PASSWORD': env('DATABASE_PASS'),
+        'HOST': env('DATABASE_HOST'), 
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
